@@ -119,12 +119,22 @@ def homework2_1():
                 plt.show()
             elif test == 4:
                 break
+            else:
+                print("\nThat is not a valid option\n")
         except(TypeError, NameError, SyntaxError):
-            print("You did not enter a valid option, try again.\n")
+            print("\nThat is not a valid option\n")
 
 
 def homework3_1():
     print("hw 3.1 Not completed yet\n")
+
+
+def homework3_2():
+    print("hw 3.2 Not completed yet\n")
+
+
+def homework4_1():
+    print("hw 4.1 Not completed yet\n")
 
 
 while True:  # While loop structure used for error handling.
@@ -134,7 +144,9 @@ while True:  # While loop structure used for error handling.
               "\n    2)  HW 1 problem 2"
               "\n    3)  HW 2 problem 1"
               "\n    4)  HW 3 problem 1"
-              "\n    5)  Exit\n")
+              "\n    5)  HW 3 problem 2"
+              "\n    6)  HW 4 problem 1"
+              "\n    7)  Exit\n")
         hwnum = input("Please choose which HW assignment: ")
         if hwnum == 1:
             clearscreen()
@@ -150,16 +162,19 @@ while True:  # While loop structure used for error handling.
             homework3_1()
         if hwnum == 5:
             clearscreen()
+            homework3_2()
+        if hwnum == 6:
+            clearscreen()
+            homework4_1()
+        if hwnum == 7:
+            clearscreen()
             break
         if not isinstance(hwnum,int):
-#            clearscreen()
+            clearscreen()
             print("Please choose a value from the list\n")
         else:
 #            clearscreen()
             print("Please choose a value from the list\n")
-    except NameError:
-#        clearscreen()
-        print("Please choose a value from the list\n")
     except(TypeError, NameError, SyntaxError):
-#        clearscreen()
+        clearscreen()
         print("Please choose a value from the list\n")
