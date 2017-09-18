@@ -2,7 +2,8 @@
 import sys,os
 import platform as pform
 import numpy as np
-
+from matplotlib import pyplot as plt
+import matplotlib
 
 rows, col = os.popen('stty size', 'r').read().split()
 rows = int(rows)/2
@@ -45,7 +46,6 @@ def homework1_2():
                     continue
             except(TypeError,NameError,SyntaxError):
                 print("\nPlease enter 1 or 2\n")
-            
 
 
     def factoid():
@@ -88,8 +88,39 @@ def homework1_2():
 
 
 def homework2_1():
-    
-    print("hw 2.1 Not completed yet\n")
+    while True:
+        try:
+            print("\n1) Deltoid Curve "
+                  "\n2) Galilean Spiral"
+                  "\n3) Fey's Function"
+                  "\n4) Exit\n")
+            test = input("Please choose a plot: ")
+            if test == 1:
+                x = np.linspace(0, 2*np.pi, 100)
+                plt.plot(2*np.cos(x) + np.cos(2*x), 2*np.sin(x) - np.sin(2*x),color='black')
+                plt.xlabel("x = 2cos(theta) + cos(2theta)")
+                plt.ylabel("y = 2sin(theta) - sin(2theta)")
+                plt.title("Deltoid Curve")
+                plt.show()
+            elif test == 2:
+                y = np.linspace(0, 10, 1000)
+                plt.plot( (y**2)*np.cos(y), (y**2)*np.sin(y),color='red')
+                plt.xlabel("theta**2")
+                plt.ylabel("r")
+                plt.title("Galilean Spiral")
+                plt.show()
+            elif test == 3:
+                print("Fey chosen")
+                y = np.linspace(0,24,1000)
+                plt.plot( (np.exp(np.cos(y)) - 2*np.cos(4*y) + (np.sin(y/12))**5)*np.cos(y), (np.exp(np.cos(y)) - 2*np.cos(4*y) + (np.sin(y/12))**5)*np.sin(y) ,color='blue')
+                plt.xlabel("exp(cos(theta)) - 2cos(4theta) + (sin(theta/12))^5")
+                plt.ylabel("r")
+                plt.title("Fey's Function")
+                plt.show()
+            elif test == 4:
+                break
+        except(TypeError, NameError, SyntaxError):
+            print("You did not enter a valid option, try again.\n")
 
 
 def homework3_1():
