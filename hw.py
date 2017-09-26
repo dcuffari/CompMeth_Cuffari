@@ -5,6 +5,7 @@ import platform as pform
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
+from gaussxw import *
 
 rows, col = os.popen('stty size', 'r').read().split()
 rows = int(rows)/2
@@ -169,7 +170,66 @@ def homework2_2():
 
 
 def homework3_1():
-    print("hw 3.1 Not completed yet\n")
+
+    def factorial(n):
+        if n < 1:
+            return 1
+        elif n > 996:
+            print("I can't calculate that")
+            return ""
+        else:
+            return n*factorial(n-1)
+
+
+    def f(n,z):
+        return (1/((z-1)**2))*np.exp(-z/(1-z))*(z/(1-z))**(n-1)
+
+
+    def gamma(n):
+        x,w = gaussxwab(4,0.0,1.0)
+        total = 0
+        for i in range(4):
+            total += w[i]*f(n,x[i])
+        return total
+
+
+    def getinput(n):
+        if n == -1:
+            return int(input("Please enter a value: "))
+        if n == -2:
+            return float(input("You have unlocked the gamma function! Please enter a floating point value: "))
+
+
+    while True:
+        try:
+            n = getinput(-1)
+            print("factorial of an integer variable gives: \n")
+            print(factorial(int(n)))
+            print("")
+            print("factorial of a float variable gives: \n")
+            print("{0:2.1f}".format( factorial(float(n))))
+            print("\nThat's a difference of,\n")
+            print
+            print("{0:2.1f}\n".format( np.abs(factorial(float(n))-factorial(int(n)) ) ))
+            
+            choice = int(input("More? (1 = yes, 2 = no): "))
+            if choice == 1:
+                continue
+            if choice == 2:
+                break
+            if choice == 3:
+                n = getinput(-2)
+                print(factorial(n))
+            if choice == 4:
+                n = getinput(-2)
+                print(gamma(n))
+        except(TypeError, NameError, SyntaxError):
+            clearscreen()
+            print("Please choose a value from the list\n")
+        except(ValueError):
+            clearscreen()
+            print("Please enter integer values only")
+            
 
 
 def homework3_2():
@@ -234,3 +294,7 @@ while reset:  # While loop structure used for error handling.
     except(TypeError, NameError, SyntaxError):
         clearscreen()
         print("Please choose a value from the list\n")
+    except(KeyboardInterrupt):
+        clearscreen()
+        print("\nCan't use the values in the list? Ok goodbye!\n")
+        break
