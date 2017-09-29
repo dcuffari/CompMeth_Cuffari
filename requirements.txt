@@ -1,0 +1,6 @@
+sys
+os
+platform
+numpy
+matplotlib
+gaussxw
