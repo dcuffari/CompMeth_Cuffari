@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 import sys,os
 import platform as pform
@@ -186,9 +186,10 @@ def homework3_1():
 
 
     def gamma(n):
-        x,w = gaussxwab(4,0.0,1.0)
+        quad = 1000
+        x,w = gaussxwab(quad,0.0,1.0)
         total = 0
-        for i in range(4):
+        for i in range(quad):
             total += w[i]*f(n,x[i])
         return total
 
