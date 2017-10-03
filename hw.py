@@ -7,11 +7,20 @@ from matplotlib import pyplot as plt
 import matplotlib
 from gaussxw import *
 
-rows, col = os.popen('stty size', 'r').read().split()
-rows = int(rows)/2
-col = int(col)/2
+
+#Some testing, please ignore
+
+#rows, col = os.popen('stty size', 'r').read().split()
+#rows = int(rows)/2
+#col = int(col)/2
+
+#os.system("resize -s 'rows col'")
+
+#End testing.
 
 def clearscreen():
+    """
+    """
     if pform.system() == 'Linux':
         os.system("clear")
     if pform.system() == 'Darwin':
@@ -21,8 +30,11 @@ def clearscreen():
 
 
 def homework1_1():
+    """
+    """
     while True:
         try:
+            print("I will calculate the time it takes a ball to drop from a tower.\n")
             test = float(input('Please enter a tower height: '))
             if test > 0:
                 print("It will take {first:2.2f} second(s) for the ball to hit the ground from a height of {second:2.2f} meter(s).\n".format( first=(np.sqrt(2*test/(9.8))),second=(test) ) )
@@ -34,8 +46,11 @@ def homework1_1():
 
 
 def homework1_2():
-
+    """
+    """
     def T(test):
+        """
+        """
         if test == -1:
             test = float(input('\nPlease enter an orbital period in seconds: '))
         G = 6.67e-11 #Newton's Gravitational Constant in m**3 kg**-1 s**-2
@@ -45,6 +60,8 @@ def homework1_2():
 
 
     def choose():
+        """
+        """
         while True:
             try:
                 choice = int(input('Would you like to try again? (1 for yes or 2 for no): '))
@@ -58,6 +75,8 @@ def homework1_2():
 
 
     def factoid():
+        """
+        """
         print("\nBefore you leave, did you know the altitude for a 90 minute orbit is {first:2.2f} meters \nand {second:2.2f} meters for a 45 minute orbit.\n".format( first=(T(90*60)),second=(T(45*60)) ))
         print("Also, the altitude for a geosynchronous (23.93 hours) satellite is {first:2.2f} meters,\nwhile a 24 hour satellite is {second:2.2f} meters.".format( first=(T(23.93*60*60)),second=(T(24*60*60)) ))
         print("That's a difference of {0:2.2f} meters.\n".format( T(24*60*60)-T(23.93*60*60) ) )
@@ -97,6 +116,8 @@ def homework1_2():
 
 
 def homework2_1():
+    """
+    """
     while True:
         try:
             print("\n1) Deltoid Curve "
@@ -134,12 +155,17 @@ def homework2_1():
 
 
 def homework2_2():
-
+    """
+    """
     def feig(r,x):
+        """
+        """
         return r*x*(1-x)
 
 
     def feigrun(r,n,x):
+        """
+        """
         temp = 0
         for i in range(n):
             temp = feig(r,x)
@@ -148,19 +174,24 @@ def homework2_2():
 
 
     def feigtree(r,ni,nj,x):
+        """
+        """
         for i in range(ni):
             x2[i] = feigrun( (i*r)/ni, nj,x)
             x = np.random.rand()
         return x2
 
-    
+    #Defining initial conditions.    
     x = 0.5
     ni = 5000
     nj = 1000
     r = 4.0
     x2 = np.zeros(ni)
+
     clearscreen()
+
     print("Plotting Feigenbaum Plot")
+    #call and plot feigtree
     plt.plot(np.linspace(0.0,r,ni),feigtree(r,ni,nj,x),'k*',ms=1)
     plt.title("Feigenbaum Plot")
     plt.xlabel("r")
@@ -170,8 +201,11 @@ def homework2_2():
 
 
 def homework3_1():
-
+    """
+    """
     def factorial(n):
+        """
+        """
         if n < 1:
             return 1
         elif n > 996:
@@ -182,10 +216,14 @@ def homework3_1():
 
 
     def f(n,z):
+        """
+        """
         return (1/((z-1)**2))*np.exp(-z/(1-z))*(z/(1-z))**(n-1)
 
 
     def gamma(n):
+        """
+        """
         quad = 1000
         x,w = gaussxwab(quad,0.0,1.0)
         total = 0
@@ -195,12 +233,14 @@ def homework3_1():
 
 
     def getinput(n):
+        """
+        """
         if n == -1:
-            return int(input("Please enter a value: "))
+            return int(input("Please enter a value to calculate the factorial: "))
         if n == -2:
             return float(input("You have unlocked the gamma function! Please enter a floating point value: "))
 
-
+    #User menu wrapped in a while loop and a try/except for error control.
     while True:
         try:
             n = getinput(-1)
@@ -234,14 +274,20 @@ def homework3_1():
 
 
 def homework3_2():
+    """
+    """
     print("hw 3.2 Not completed yet\n")
 
 
 def homework4_1():
+    """
+    """
     print("hw 4.1 Not completed yet\n")
 
 
 def homework4_2():
+    """
+    """
     print("hw 4.2 Not completed yet\n")
 
 reset = True
