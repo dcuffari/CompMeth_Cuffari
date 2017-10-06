@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import sys,os
 import platform as pform
@@ -270,7 +270,6 @@ def homework3_1():
         except(ValueError):
             clearscreen()
             print("Please enter integer values only")
-            
 
 
 def homework3_2():
@@ -282,7 +281,56 @@ def homework3_2():
 def homework4_1():
     """
     """
-    print("hw 4.1 Not completed yet\n")
+    def f(x):
+        if hasattr(x,"__len__") and (not isinstance(x,str)) == True:
+            return [np.exp(-x[i]*x[i]) for i in range(len(x))]
+        else:
+            return np.exp(-x**2)
+
+
+    def E(x1):
+        """
+        """
+        quad = 100
+        x,w = gaussxwab(quad,0,x1)
+        tot = 0
+        for i in range(quad):
+            tot += w[i]*f(x[i])
+        return tot
+
+    print("\n   The integral: ∫exp(-t^2)dt  has no analytic solution. The integral can be\n"
+          "   evaluated numerically for different bounds, 0 to x. The following plot evaluates\n"
+          "   x from negative pi to pi.")
+    y = np.zeros(199,dtype=float)
+    x = np.zeros(199,dtype=float)
+    for i in range(199):
+        x[i] = -np.pi+i*0.01*np.pi
+        y[i] = E(-np.pi+i*0.01*np.pi)
+    plt.title("Plot of E(x) = ∫exp(-t^2)dt")
+    plt.xlabel("x")
+    plt.ylabel("E(x)")
+    plt.plot(x,y)
+    plt.show()
+    print("\n   As can be seen from the plot, the integral grows asymptotically toward\n"
+          "   a value of ±√π/2\n")
+    while True:
+        try:
+            a=float(input("   Try for yourself. Please enter a value of x : "))
+            x=E(a)
+            print("   That gives ",x)
+            b=int(input("   Would you like to try another value of x? (yes = 1, no = 2): "))
+            if b == 1:
+                continue
+            elif b == 2:
+                print("\nGoodbye.\n")
+                break
+        except(TypeError, NameError, SyntaxError,ValueError):
+            clearscreen()
+            print("Please choose a value from the list\n")
+        except(KeyboardInterrupt):
+            clearscreen()
+            print("\nCan't use the values in the list? Ok goodbye!\n")
+            break
 
 
 def homework4_2():
@@ -338,7 +386,7 @@ while reset:  # While loop structure used for error handling.
         else:
             clearscreen()
             print("Please choose a value from the list\n")
-    except(TypeError, NameError, SyntaxError):
+    except(TypeError, NameError, SyntaxError,ValueError):
         clearscreen()
         print("Please choose a value from the list\n")
     except(KeyboardInterrupt):
