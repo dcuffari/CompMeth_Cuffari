@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
 from gaussxw import *
-
+import time
 
 #Some testing, please ignore
 
@@ -301,11 +301,14 @@ def homework4_1():
     print("\n   The integral: ∫exp(-t^2)dt  has no analytic solution. The integral can be\n"
           "   evaluated numerically for different bounds, 0 to x. The following plot evaluates\n"
           "   x from negative pi to pi.")
+
     y = np.zeros(199,dtype=float)
     x = np.zeros(199,dtype=float)
+
     for i in range(199):
         x[i] = -np.pi+i*0.01*np.pi
         y[i] = E(-np.pi+i*0.01*np.pi)
+
     plt.title("Plot of E(x) = ∫exp(-t^2)dt")
     plt.xlabel("x")
     plt.ylabel("E(x)")
@@ -336,7 +339,40 @@ def homework4_1():
 def homework4_2():
     """
     """
-    print("hw 4.2 Not completed yet\n")
+    def f(x):
+        return (x**4)/((np.exp(x)-1)**2)
+
+
+    def Cv(T):
+        """
+        """
+        quad = 50
+        x,w = gaussxwab(quad,0,T)
+        tot = 0
+        for i in range(quad):
+            tot += w[i]*f(x[i])
+        return tot
+
+
+    print("Would you like to see a plot of the Debye Temperature of Aluminum? ...\n\n")
+    time.sleep(2)
+    print("... Too late you are seeing it anyway.")
+    y = np.zeros(495,dtype=float)
+    x = np.zeros(495,dtype=float)
+    cof = 9*0.001*6.022*(10**28)*1.38064852*(10**-23)*(428**-3)*np.exp(4) #V = 0.001 cubic meters 
+    for T in range(5,500):
+        x[T-5] = T
+        y[T-5] = (T**3)*cof*Cv(428*(T**-1))
+
+    plt.title("Plot of The Debye Temperature of Aluminum")
+    plt.xlabel("T")
+    plt.ylabel("Cv(T) = 9Vρk(T/Θ)^3∫exp(-t^2)dt")
+    plt.plot(x,y)
+    plt.show()
+
+
+
+
 
 reset = True
 while reset:  # While loop structure used for error handling.
