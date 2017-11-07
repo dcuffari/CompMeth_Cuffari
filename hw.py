@@ -439,31 +439,24 @@ while reset:  # While loop structure used for error handling.
         elif hwnum == 8:
             clearscreen()
             homework4_2()
-
         elif hwnum == 9:
             clearscreen()
             homework5_1()
-
         elif hwnum == 10:
             clearscreen()
             homework5_2()
-
         elif hwnum == 11:
             clearscreen()
             homework6_1()
-
         elif hwnum == 12:
             clearscreen()
             homework6_2()
-
         elif hwnum == 13:
             clearscreen()
             homework7_1()
-
         elif hwnum == 14:
             clearscreen()
             homework7_2()
-
         elif hwnum == 15:
             clearscreen()
             reset = False
