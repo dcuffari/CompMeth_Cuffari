@@ -371,22 +371,49 @@ def homework4_2():
     plt.show()
 
 
+def homework5_1():
+    print("Not completed, please try again later.")
 
+
+def homework5_2():
+    print("Not completed, please try again later.")
+
+
+def homework6_1():
+    print("Not completed, please try again later.")
+
+
+def homework6_2():
+    print("Not completed, please try again later.")
+
+
+def homework7_1():
+    print("Not completed, please try again later.")
+
+
+def homework7_2():
+    print("Not completed, please try again later.")
 
 
 reset = True
 while reset:  # While loop structure used for error handling.
     try:
         hwnum = 0
-        print("\n    1)  HW 1 problem 1"
-              "\n    2)  HW 1 problem 2\n"
-              "\n    3)  HW 2 problem 1"
-              "\n    4)  HW 2 problem 2\n"
-              "\n    5)  HW 3 problem 1"
-              "\n    6)  HW 3 problem 2\n"
-              "\n    7)  HW 4 problem 1"
-              "\n    8)  HW 4 problem 2\n"
-              "\n\n    9)  Exit\n")
+        print("\n    1)  Introduction to Python 1.1"
+              "\n    2)  Introduction to Python 1.2\n"
+              "\n    3)  Plotting in Python 2.1"
+              "\n    4)  Plotting in Python 2.2\n"
+              "\n    5)  Accuracy and Speed 3.1"
+              "\n    6)  Accuracy and Speed 3.2\n"
+              "\n    7)  Integration 4.1"
+              "\n    8)  Integration 4.2\n"
+              "\n    9)  Solving Equations 5.1"
+              "\n   10)  Solving Equations 5.2\n"
+              "\n   11)  ODE's 6.1"
+              "\n   12)  ODE's 6.2\n"
+              "\n   13)  PDE's 7.1"
+              "\n   14)  PDE's 7.2\n"
+              "\n\n   15)  Exit\n")
         hwnum = int(input("Please choose which HW assignment: "))
         if hwnum == 1:
             clearscreen()
@@ -412,7 +439,32 @@ while reset:  # While loop structure used for error handling.
         elif hwnum == 8:
             clearscreen()
             homework4_2()
+
         elif hwnum == 9:
+            clearscreen()
+            homework5_1()
+
+        elif hwnum == 10:
+            clearscreen()
+            homework5_2()
+
+        elif hwnum == 11:
+            clearscreen()
+            homework6_1()
+
+        elif hwnum == 12:
+            clearscreen()
+            homework6_2()
+
+        elif hwnum == 13:
+            clearscreen()
+            homework7_1()
+
+        elif hwnum == 14:
+            clearscreen()
+            homework7_2()
+
+        elif hwnum == 15:
             clearscreen()
             reset = False
             break
