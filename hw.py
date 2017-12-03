@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import matplotlib
 from gaussxw import *
 import time
+import banded
 
 #Some testing, please ignore
 
@@ -372,7 +373,65 @@ def homework4_2():
 
 
 def homework5_1():
-    print("Not completed, please try again later.")
+    N = int(input("Solving A Chain of Resistors. Please enter the number of unkown junction voltages.\n\n \tN = "))
+    A = np.zeros((N,N))
+    V = 5  #voltage of upper rail
+    u = 2  #number of non-zero values above diagonal of matrix A
+    d = u  #number of non-zero values below diagonal of matrix A
+    # populate A
+    for i in range(2,N-2):
+        A[i,(i-2)] = -1
+        A[i,(i-1)] = -1
+        A[i,(i)] =  4
+        A[i,(i+1)] = -1
+        A[i,(i+2)] = -1
+    A[0,0] = 3
+    A[0,1] = -1
+    A[0,2] = -1
+    A[1,0] = -1
+    A[1,1] = 4
+    A[1,2] = -1
+    A[1,3] = -1
+    A[N-1,N-1] = 3
+    A[N-1,N-2] = -1
+    A[N-1,N-3] = -1
+    A[N-2,N-1] = -1
+    A[N-2,N-2] = 4
+    A[N-2,N-3] = -1
+    A[N-2,N-4] = -1
+    print(A)
+    w = np.zeros(N)
+    w[0] = V
+    w[1] = V
+    if ( N <= 20 ):
+        #solve Av=w
+        v = np.linalg.solve(A,w)
+        print(v)
+
+    if ( N > 20 ):
+        #reorder matrix A into matrix diagonal ordered form
+        Anew = np.zeros((1+u+d,N))
+        k=0
+        for i in range(N):
+            for j in range(u+1):
+                Anew[(u + i - k-j),k] = A[i,k-j]
+            for l in range(1,d+1):
+                if ( i < N-l ):
+                    Anew[(u + i - k+l),k] = A[i+l,k]
+            k+=1
+        print(Anew)
+        # solve Av=w
+        v = banded.banded(Anew,w,u,d)
+        print(v)
+        #sanity check of all values being less than 5
+        for i in range(N):
+            if ( v[i] > 5 ):
+                print("greater than 5!!!!!")
+                check = 1
+            else:
+                check = 0
+        if ( check == 0 ):
+            print("All less than 5!!!!")
 
 
 def homework5_2():
