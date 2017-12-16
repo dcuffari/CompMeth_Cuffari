@@ -8,6 +8,10 @@ import matplotlib
 from gaussxw import *
 import time
 import banded
+from math import sin,pi
+from numpy import empty,array,arange
+from pylab import plot,show
+import pylab
 
 #Some testing, please ignore
 
@@ -378,7 +382,7 @@ def homework5_1():
     V = 5  #voltage of upper rail
     u = 2  #number of non-zero values above diagonal of matrix A
     d = u  #number of non-zero values below diagonal of matrix A
-    # populate A
+    # populate A in a very ugly way!
     for i in range(2,N-2):
         A[i,(i-2)] = -1
         A[i,(i-1)] = -1
@@ -432,25 +436,98 @@ def homework5_1():
                 check = 0
         if ( check == 0 ):
             print("All less than 5!!!!")
-
-
-def homework5_2():
-    print("Not completed, please try again later.")
+        for i in range(N):
+            if ( v[i] < 0 ):
+                print("less than 0!!!!!")
+                check = 1
+            else:
+                check = 0
+        if ( check == 0 ):
+            print("All greater than 0!!!!")
 
 
 def homework6_1():
-    print("Not completed, please try again later.")
+    A = 1
+    B = 3
+    
+    a = 0.0
+    b = 20.0
+    N = 100          # Number of "big steps"
+    H = (b-a)/N      # Size of "big steps"
+    delta = 1e-10     # Required position accuracy per unit time
+    
+    def f(r):
+        x = r[0]
+        y = r[1]
+        fx = 1 - (B + 1)*x + A*x*x*y
+        fy = B*x - A*x*x*y
+        return array([fx,fy],float)
+    
+    tpoints = arange(a,b,H)
+    xpoints = []
+    ypoints = []
+    r = array([0.0,0.0],float)
+    
+    # Do the "big steps" of size H
+    for t in tpoints:
+    
+        xpoints.append(r[0])
+        ypoints.append(r[1])
+    
+        # Do one modified midpoint step to get things started
+        n = 1
+        r1 = r + 0.5*H*f(r)
+        r2 = r + H*f(r1)
+    
+        # The array R1 stores the first row of the
+        # extrapolation table, which contains only the single
+        # modified midpoint estimate of the solution at the
+        # end of the interval
+        R1 = empty([1,2],float)
+        R1[0] = 0.5*(r1 + r2 + 0.5*H*f(r2))
+    
+        # Now increase n until the required accuracy is reached
+        error = 2*H*delta
+        while error>H*delta:
+    
+            n += 1
+            h = H/n
+    
+            # Modified midpoint method
+            r1 = r + 0.5*h*f(r)
+            r2 = r + h*f(r1)
+            for i in range(n-1):
+                r1 += h*f(r2)
+                r2 += h*f(r1)
+    
+            # Calculate extrapolation estimates.  Arrays R1 and R2
+            # hold the two most recent lines of the table
+            R2 = R1
+            R1 = empty([n,2],float)
+            R1[0] = 0.5*(r1 + r2 + 0.5*h*f(r2))
+            for m in range(1,n):
+                epsilon = (R1[m-1]-R2[m-1])/((n/(n-1))**(2*m)-1)
+                R1[m] = R1[m-1] + epsilon
+            error = abs(epsilon[0])
+    
+        # Set r equal to the most accurate estimate we have,
+        # before moving on to the next big step
+        r = R1[n-1]
+    
+    # Plot the results
+    pylab.title("Belousov-Zhabotinsky Reaction")
+    pylab.ylabel("x,y")
+    pylab.xlabel("time, t")
+    plot(tpoints,xpoints)
+    plot(tpoints,xpoints,"b.",label='concentration x')
+    plot(tpoints,ypoints)
+    plot(tpoints,ypoints,"r.",label='concentration y')
+    pylab.annotate('Rapid change\nin concentration',xy=(8.8,2.6),xytext=(3,1.5),arrowprops=dict(facecolor='black',shrink=0.05))
+    pylab.legend()
+    show()
 
 
-def homework6_2():
-    print("Not completed, please try again later.")
-
-
-def homework7_1():
-    print("Not completed, please try again later.")
-
-
-def homework7_2():
+def homework8_1():
     print("Not completed, please try again later.")
 
 
@@ -466,13 +543,10 @@ while reset:  # While loop structure used for error handling.
               "\n    6)  Accuracy and Speed 3.2\n"
               "\n    7)  Integration 4.1"
               "\n    8)  Integration 4.2\n"
-              "\n    9)  Solving Equations 5.1"
-              "\n   10)  Solving Equations 5.2\n"
-              "\n   11)  ODE's 6.1"
-              "\n   12)  ODE's 6.2\n"
-              "\n   13)  PDE's 7.1"
-              "\n   14)  PDE's 7.2\n"
-              "\n\n   15)  Exit\n")
+              "\n    9)  Solving Equations 5.1\n"
+              "\n   10)  ODE's 6.1\n"
+              "\n   11)  Monte Carlo 8.1"
+              "\n\n   12)  Exit\n")
         hwnum = int(input("Please choose which HW assignment: "))
         if hwnum == 1:
             clearscreen()
@@ -503,20 +577,11 @@ while reset:  # While loop structure used for error handling.
             homework5_1()
         elif hwnum == 10:
             clearscreen()
-            homework5_2()
+            homework6_1()
         elif hwnum == 11:
             clearscreen()
-            homework6_1()
+            homework8_1()
         elif hwnum == 12:
-            clearscreen()
-            homework6_2()
-        elif hwnum == 13:
-            clearscreen()
-            homework7_1()
-        elif hwnum == 14:
-            clearscreen()
-            homework7_2()
-        elif hwnum == 15:
             clearscreen()
             reset = False
             break
