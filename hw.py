@@ -516,7 +516,7 @@ def homework6_1():
     
     # Plot the results
     pylab.title("Belousov-Zhabotinsky Reaction")
-    pylab.ylabel("x,y")
+    pylab.ylabel("Concentration, a.u.")
     pylab.xlabel("time, t")
     plot(tpoints,xpoints)
     plot(tpoints,xpoints,"b.",label='concentration x')
@@ -528,7 +528,32 @@ def homework6_1():
 
 
 def homework8_1():
-    print("Not completed, please try again later.")
+
+
+    def f(x):
+        return x**(-1/2)*(np.exp(x)+1)**-1
+
+
+    def p(x):
+        return 1/(2*x**(-1/2))
+
+    def mc():
+        print("\n   The integral: ∫x^(-1/2)/(exp(x)+1)dx will be calculated using a \n"
+              "                 Monte Carlo with a importance sampling, w(x) = x^(-1/2)\n")
+        N = 1000000
+        count = 0
+        x = []
+        for i in range(N):
+            x[i] = 2*np.random.rand()
+            y = np.random.rand()
+            if y < f(x):
+                count +=1
+        I = 2*count/N
+        print("The result is ... ",I)
+        trash = input("One second...")
+
+
+    mc()
 
 
 reset = True
@@ -591,9 +616,9 @@ while reset:  # While loop structure used for error handling.
         else:
             clearscreen()
             print("Please choose a value from the list\n")
-    except(TypeError, NameError, SyntaxError,ValueError):
-        clearscreen()
-        print("Please choose a value from the list\n")
+#    except(TypeError, NameError, SyntaxError,ValueError):
+#        clearscreen()
+#        print("Please choose a value from the list\n")
     except(KeyboardInterrupt):
         clearscreen()
         print("\nCan't use the values in the list? Ok goodbye!\n")
