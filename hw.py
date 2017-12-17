@@ -13,15 +13,6 @@ from numpy import empty,array,arange
 from pylab import plot,show
 import pylab
 
-#Some testing, please ignore
-
-#rows, col = os.popen('stty size', 'r').read().split()
-#rows = int(rows)/2
-#col = int(col)/2
-
-#os.system("resize -s 'rows col'")
-
-#End testing.
 
 def clearscreen():
     """
@@ -61,7 +52,7 @@ def homework1_2():
         G = 6.67e-11 #Newton's Gravitational Constant in m**3 kg**-1 s**-2
         M = 5.97e24  #Mass of earth in kg
         R = 6371000  #Earths radius in m
-        return ( (G*M*test*test)/(4*(np.pi)**2) )**(0.33333333333333)
+        return ( (G*M*test*test)/(4*(np.pi)**2) )**(1/3)
 
 
     def choose():
@@ -275,12 +266,6 @@ def homework3_1():
         except(ValueError):
             clearscreen()
             print("Please enter integer values only")
-
-
-def homework3_2():
-    """
-    """
-    print("hw 3.2 Not completed yet\n")
 
 
 def homework4_1():
@@ -531,26 +516,30 @@ def homework8_1():
 
 
     def f(x):
-        return x**(-1/2)*(np.exp(x)+1)**-1
+        return x**(-1/2)/(np.exp(x)+1)
 
 
     def p(x):
         return 1/(2*x**(-1/2))
+
+
+    def g(x):
+        return 1/(np.exp(x)+1)
+
 
     def mc():
         print("\n   The integral: ∫x^(-1/2)/(exp(x)+1)dx will be calculated using a \n"
               "                 Monte Carlo with a importance sampling, w(x) = x^(-1/2)\n")
         N = 1000000
         count = 0
-        x = []
+        xkeep = np.zeros(N)
         for i in range(N):
-            x[i] = 2*np.random.rand()
+            xkeep[i] = x = p((np.random.rand()))
             y = np.random.rand()
-            if y < f(x):
+            if y < g(x):
                 count +=1
         I = 2*count/N
         print("The result is ... ",I)
-        trash = input("One second...")
 
 
     mc()
@@ -565,13 +554,12 @@ while reset:  # While loop structure used for error handling.
               "\n    3)  Plotting in Python 2.1"
               "\n    4)  Plotting in Python 2.2\n"
               "\n    5)  Accuracy and Speed 3.1"
-              "\n    6)  Accuracy and Speed 3.2\n"
-              "\n    7)  Integration 4.1"
-              "\n    8)  Integration 4.2\n"
-              "\n    9)  Solving Equations 5.1\n"
-              "\n   10)  ODE's 6.1\n"
-              "\n   11)  Monte Carlo 8.1"
-              "\n\n   12)  Exit\n")
+              "\n    6)  Integration 4.1"
+              "\n    7)  Integration 4.2\n"
+              "\n    8)  Solving Equations 5.1\n"
+              "\n    9)  ODE's 6.1\n"
+              "\n   10)  Monte Carlo 8.1"
+              "\n\n   11)  Exit\n")
         hwnum = int(input("Please choose which HW assignment: "))
         if hwnum == 1:
             clearscreen()
@@ -590,23 +578,20 @@ while reset:  # While loop structure used for error handling.
             homework3_1()
         elif hwnum == 6:
             clearscreen()
-            homework3_2()
+            homework4_1()
         elif hwnum == 7:
             clearscreen()
-            homework4_1()
+            homework4_2()
         elif hwnum == 8:
             clearscreen()
-            homework4_2()
+            homework5_1()
         elif hwnum == 9:
             clearscreen()
-            homework5_1()
+            homework6_1()
         elif hwnum == 10:
             clearscreen()
-            homework6_1()
-        elif hwnum == 11:
-            clearscreen()
             homework8_1()
-        elif hwnum == 12:
+        elif hwnum == 11:
             clearscreen()
             reset = False
             break
@@ -616,9 +601,9 @@ while reset:  # While loop structure used for error handling.
         else:
             clearscreen()
             print("Please choose a value from the list\n")
-#    except(TypeError, NameError, SyntaxError,ValueError):
-#        clearscreen()
-#        print("Please choose a value from the list\n")
+    except(TypeError, NameError, SyntaxError,ValueError):
+        clearscreen()
+        print("Please choose a value from the list\n")
     except(KeyboardInterrupt):
         clearscreen()
         print("\nCan't use the values in the list? Ok goodbye!\n")
